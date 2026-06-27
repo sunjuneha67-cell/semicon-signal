@@ -7,4 +7,12 @@ jobs:
   send-signal:
     runs-on: ubuntu-latest
     steps:
-      - run: curl "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.CHAT_ID }}&text=반도체+시그널+체크+07:00%0AHBM+둔화%0A엔비디아+가이던스%0ADRAM+가격%0ASMH+추세%0A외국인+수급"
+      - run: |
+          curl -s "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage" \
+            --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
+            --data-urlencode "text=반도체 시그널 체크 07:00
+HBM 둔화 확인
+엔비디아 가이던스 확인
+DRAM 가격 확인
+SMH 추세 확인
+외국인 수급 확인"
