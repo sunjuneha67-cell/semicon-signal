@@ -1,18 +1,10 @@
-name: 반도체 시그널 알림
+name: signal
 on:
   schedule:
     - cron: '0 22 * * 1-5'
   workflow_dispatch:
 jobs:
-  send-signal:
+  s:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          curl -s "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage" \
-            --data-urlencode "chat_id=${{ secrets.CHAT_ID }}" \
-            --data-urlencode "text=반도체 시그널 체크 07:00
-HBM 둔화 확인
-엔비디아 가이던스 확인
-DRAM 가격 확인
-SMH 추세 확인
-외국인 수급 확인"
+      - run: curl -s -X POST https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.CHAT_ID }} -d text=test123
