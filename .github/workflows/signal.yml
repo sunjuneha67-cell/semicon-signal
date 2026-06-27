@@ -7,4 +7,4 @@ jobs:
   s:
     runs-on: ubuntu-latest
     steps:
-      - run: curl -s -X POST https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.CHAT_ID }} -d text=test123
+      - run: curl -s -X POST https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.CHAT_ID }} -d "text=반도체 시그널 체크 07:00%0A%0A1차 핵심 트리거%0A- HBM 주문 둔화%0A- 엔비디아 가이던스 하향 ⚡%0A- DRAM 가격 악화%0A- SMH/SOXX 추세 훼손 ⚡%0A- 외국인 반도체 대량매도%0A%0A2차 보강 트리거%0A- TSMC 월매출 둔화%0A- 한국 반도체 수출 둔화%0A- AI capex 둔화%0A- 장비주 주문 둔화%0A- 메모리 재고 증가%0A%0A⚡ 1개라도 발동시 즉시 청산 검토%0A1차 2개 이상 국장 전체 청산 미장 투입"
