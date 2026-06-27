@@ -1,0 +1,52 @@
+name: 반도체 시그널 알림
+
+on:
+  schedule:
+    - cron: '0 22 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  send-signal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 시그널 체크 및 텔레그램 전송
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          python3 << 'EOF'
+          import urllib.request
+          import json
+          import os
+          from datetime import datetime
+
+          bot_token = os.environ['BOT_TOKEN']
+          chat_id = os.environ['CHAT_ID']
+
+          msg = """🔴 반도체 시그널 체크 (07:00)
+
+📊 오늘의 체크리스트:
+
+1차 핵심 트리거
+☐ HBM 주문 둔화
+☐ 엔비디아 가이던스 하향 ⚡
+☐ DRAM 가격 악화
+☐ SMH/SOXX 추세 훼손 ⚡
+☐ 외국인 반도체 대량매도
+
+2차 보강 트리거
+☐ TSMC 월매출 둔화
+☐ 한국 반도체 수출 둔화
+☐ AI capex 둔화
+☐ 장비주 주문 둔화
+☐ 메모리 재고 증가
+
+⚡ 표시 1개라도 발동 시 → 즉시 청산 검토
+1차 2개 이상 → 국장 전체 청산 → 미장 투입"""
+
+          url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+          data = json.dumps({"chat_id": chat_id, "text": msg}).encode()
+          req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+          urllib.request.urlopen(req)
+          print("전송 완료")
+          EOF
